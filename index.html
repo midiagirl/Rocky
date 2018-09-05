@@ -1,0 +1,203 @@
+<!-- <!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Apply JavaScript example</title>
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+      function createParagraph() {
+        var para = document.createElement('p');
+        para.textContent = 'You clicked the button!';
+        document.body.appendChild(para);
+      }
+
+      var buttons = document.querySelectorAll('button');
+
+      for(var i = 0; i < buttons.length ; i++) {
+        buttons[i].addEventListener('click', createParagraph);
+      }
+    });
+
+    </script>
+
+  </head>
+  <body>
+    <button>Click me</button>
+    <button>Click</button>
+    <button>Click you</button>
+    <p>vfyhadn</p>
+    <h1>fgfhdjnjkb</h1>
+  </body>
+</html> -->
+
+<!-- guess game code -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Midiagirl's Guessing Game</title>
+
+
+
+    <!-- beginning of style -->
+
+
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+        background-color: darkorange;
+      }
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+      .guessSubmit {
+        background-color: white;
+        color: black;
+        padding: 3px 8px;
+        font-size: 90%;
+      }
+
+    </style>
+
+
+<!-- end of style -->
+
+
+  </head>
+
+  <body>
+    <h1>Midiagirl's Number Guessing Game - Rocky</h1>
+    <h2>Hey, there!</h2>
+
+    <p>Rocky has been programmed to select a random number between 1 and 100. See if you can guess the number he selects in 10 turns or fewer. He'll tell you if your guess was wrong or right, too high or too low. Have fun cracking this!</p>
+    <p>May the numbers be with you!</p>
+
+    <div class="form">
+      <label for="guessField">Enter a guess: </label><input type="text" id="guessField" class="guessField">
+      <input type="submit" value="Submit guess" class="guessSubmit">
+    </div>
+
+    <div class="resultParas">
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+    </div>
+
+
+<!-- begin of javascript -->
+
+
+    <script>
+
+
+    // declaring variables
+
+
+
+      var randomNumber = Math.floor(Math.random() * 100) + 1;
+
+      var guesses = document.querySelector('.guesses');
+      var lastResult = document.querySelector('.lastResult');
+      var lowOrHi = document.querySelector('.lowOrHi');
+
+      var guessSubmit = document.querySelector('.guessSubmit');
+      var guessField = document.querySelector('.guessField');
+
+      var guessCount = 1;
+      var resetButton;
+
+
+      // declaring checkguess function
+
+
+      function checkGuess() {
+      var userGuess = Number(guessField.value);
+      if (guessCount === 1) {
+        guesses.textContent = 'Previous guesses: ';
+      }
+      guesses.textContent += userGuess + ' ';
+
+      if (userGuess === randomNumber) {
+        lastResult.textContent = 'Congratulations! You got it right!';
+        lastResult.style.backgroundColor = 'green';
+        lowOrHi.textContent = '';
+        setGameOver();
+      } else if (guessCount === 10) {
+        lastResult.textContent = '!!!GAME OVER!!!';
+        setGameOver();
+      } else {
+        lastResult.textContent = 'Wrong!';
+        lastResult.style.backgroundColor = 'red';
+        if(userGuess < randomNumber) {
+          lowOrHi.textContent = 'Last guess was too low!';
+        } else if(userGuess > randomNumber) {
+          lowOrHi.textContent = 'Last guess was too high!';
+        }
+      }
+
+      guessCount++;
+      guessField.value = '';
+      guessField.focus();
+    }
+
+
+    // calling the function with an event
+
+
+    guessSubmit.addEventListener('click', checkGuess);
+
+
+
+    // function set game over
+
+
+
+    function setGameOver() {
+    guessField.disabled = true;
+    guessSubmit.disabled = true;
+    resetButton = document.createElement('button');
+    resetButton.textContent = 'Start new game';
+    document.body.appendChild(resetButton);
+    resetButton.addEventListener('click', resetGame);
+  }
+
+
+// declaring function reset game
+
+
+
+  function resetGame() {
+    guessCount = 1;
+
+    var resetParas = document.querySelectorAll('.resultParas p');
+    for (var i = 0 ; i < resetParas.length ; i++) {
+      resetParas[i].textContent = '';
+    }
+
+    resetButton.parentNode.removeChild(resetButton);
+
+    guessField.disabled = false;
+    guessSubmit.disabled = false;
+    guessField.value = '';
+    guessField.focus();
+
+    lastResult.style.backgroundColor = 'white';
+
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+  }
+
+    </script>
+  </body>
+</html>
