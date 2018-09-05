@@ -49,14 +49,32 @@
 
     <style>
       html {
-        font-family: sans-serif;
+        font-family: monospace;
       }
       body {
         width: 50%;
         max-width: 800px;
         min-width: 480px;
         margin: 0 auto;
-        background-color: darkorange;
+        color: white;
+        background-image: url(game.jpg);
+      }
+      .body-content {
+        background-color: rgba(50,50,50,0.7);
+        background-position: center;
+        background-size: contain;
+        width: 100%;
+        height: auto;
+        padding: 50px;
+        margin-top: 50px;
+      }
+      h1 {
+        color: darkorange;
+        font-family: sans-serif;
+      }
+      p {
+        color: white;
+        font-family: cursive;
       }
       .lastResult {
         color: white;
@@ -78,21 +96,23 @@
   </head>
 
   <body>
-    <h1>Midiagirl's Number Guessing Game - Rocky</h1>
-    <h2>Hey, there!</h2>
+    <div class="body-content">
+        <h1>Midiagirl's Number Guessing Game - Rocky</h1>
+        <h2>Hey, there!</h2>
 
-    <p>Rocky has been programmed to select a random number between 1 and 100. See if you can guess the number he selects in 10 turns or fewer. He'll tell you if your guess was wrong or right, too high or too low. Have fun cracking this!</p>
-    <p>May the numbers be with you!</p>
+        <p>Rocky has been programmed to select a random number between 1 and 100. See if you can guess the number he selects in 10 turns or fewer. He'll tell you if your guess was wrong or right, too high or too low. Have fun cracking this!</p>
+        <p>May the numbers be with you!</p>
 
-    <div class="form">
-      <label for="guessField">Enter a guess: </label><input type="text" id="guessField" class="guessField">
-      <input type="submit" value="Submit guess" class="guessSubmit">
-    </div>
+        <div class="form">
+          <label for="guessField"><p>Enter a guess: </p></label><input type="text" id="guessField" class="guessField">
+          <input type="submit" value="Submit guess" class="guessSubmit">
+        </div>
 
-    <div class="resultParas">
-      <p class="guesses"></p>
-      <p class="lastResult"></p>
-      <p class="lowOrHi"></p>
+        <div class="resultParas">
+          <p class="guesses"></p>
+          <p class="lastResult"></p>
+          <p class="lowOrHi"></p>
+        </div>
     </div>
 
 
@@ -125,7 +145,7 @@
       function checkGuess() {
       var userGuess = Number(guessField.value);
       if (guessCount === 1) {
-        guesses.textContent = 'Previous guesses: ';
+        guesses.textContent = 'Your previous guesses: ';
       }
       guesses.textContent += userGuess + ' ';
 
@@ -135,7 +155,7 @@
         lowOrHi.textContent = '';
         setGameOver();
       } else if (guessCount === 10) {
-        lastResult.textContent = '!!!GAME OVER!!!';
+        lastResult.textContent = '!!!GAME OVER!!!. Click button below to try again';
         setGameOver();
       } else {
         lastResult.textContent = 'Wrong!';
